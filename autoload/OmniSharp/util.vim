@@ -275,6 +275,18 @@ function! OmniSharp#util#TranslatePathForClient(filename) abort
   if filename =~# '\$metadata\$'
     let filename = OmniSharp#util#TempDir() . '/' . fnamemodify(filename, ':t')
   endif
+
+  " Find relative filename
+  let common = escape(getcwd(), '\')
+  let result = ''
+  while substitute(filename, common, '', '') ==# filename
+    let common = fnamemodify(common, ':h')
+    let result = '..' . (empty(result) ? '' : s:dir_separator . result)
+  endwhile
+  if !empty(result)
+    return result . substitute(filename, common, '', '')
+  endif
+
   return fnamemodify(filename, ':.')
 endfunction
 
