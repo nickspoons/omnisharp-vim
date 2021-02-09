@@ -293,6 +293,7 @@ function! OmniSharp#util#TranslatePathForClient(filename) abort
     if common !=# s:dir_separator
       return result . substitute(filename, common . s:dir_separator, '', '')
     endif
+    let modifiers = ':p'
   endif
 
   return fnamemodify(filename, modifiers)
