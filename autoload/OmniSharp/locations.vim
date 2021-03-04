@@ -57,7 +57,7 @@ function! OmniSharp#locations#Parse(quickfixes) abort
   for quickfix in a:quickfixes
     let location = {
     \ 'filename': has_key(quickfix, 'FileName')
-    \   ? OmniSharp#util#TranslatePathForClient(quickfix.FileName)
+    \   ? quickfix.FileName
     \   : expand('%:p'),
     \ 'text': get(quickfix, 'Text', get(quickfix, 'Message', '')),
     \ 'lnum': quickfix.Line,

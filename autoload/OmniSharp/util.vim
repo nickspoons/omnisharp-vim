@@ -300,6 +300,16 @@ function! OmniSharp#util#TranslatePathForClient(filename) abort
   return fnamemodify(filename, modifiers)
 endfunction
 
+function! OmniSharp#util#TranslateLocationsForClient(locations) abort
+  let fixedLocations = []
+  for location in a:locations
+    let fixedLocation = location
+    let fixedLocation.filename = OmniSharp#util#TranslatePathForClient(location.filename)
+    call add(fixedLocations, fixedLocation)
+  endfor
+  return fixedLocations
+endfunction
+
 function! OmniSharp#util#TranslatePathForServer(filename) abort
   let filename = a:filename
   if g:OmniSharp_translate_cygwin_wsl && (s:is_wsl() || s:is_msys() || s:is_cygwin())
