@@ -8,7 +8,7 @@ if !g:OmniSharp_server_stdio
   call OmniSharp#py#Bootstrap()
 endif
 
-function! OmniSharp#GetHost(...) abort
+xfunction! OmniSharp#GetHost(...) abort
   let bufnr = a:0 ? a:1 : bufnr('%')
   if g:OmniSharp_server_stdio
     " Using the stdio server, b:OmniSharp_host is a dict containing the
